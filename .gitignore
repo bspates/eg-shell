@@ -1,0 +1,4 @@
+.vagrant/*
+*.o
+eg
+*.exe

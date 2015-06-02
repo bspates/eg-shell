@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include <string.h>
 
 #include <curl/curl.h>
 #include <json/json.h>
+
+#include "common.h"
 
 // Update these two variables manually together
 // Better than using sizeof dynamically for a fixed variable
@@ -224,11 +225,6 @@ int request_search(char *query, char **suggestion, struct egg **found) {
   return 0;
 }
 
-int empty_string(char *string) {
-  if(strcmp("", string) != 0) return 0;
-  return 1;
-}
-
 int valid_command(char *command) {
   int i = 0;
   int comp = 0;
@@ -290,7 +286,7 @@ int install(char *target) {
 
   if(found == NULL) {
     if(!empty_string(suggestion)) {
-      printf("No results found for %s -- Try '%s'\n", target, suggestion);
+      printf("\n\nNo results found for %s -> Try '%s'\n\n", target, suggestion);
       return 0;
     }
     printf("Sorry no matching install packages or suggestions\n");
@@ -306,6 +302,7 @@ int install(char *target) {
   printf("\nEnter chosen script number or -1 to exit: ");
   choice = (getchar() - 47);
   if(choice < 0) return 0;
+
   return 0;
 }
 
@@ -318,6 +315,7 @@ int run_command(int command_index, int arg_num, char *args[]) {
     default:
       fprintf(stderr, "ERROR: No such command\n");
   }
+  return 0;
 }
 
 int main(int argc, char *argv[]) {

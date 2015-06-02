@@ -3,7 +3,7 @@ CFLAGS = -g -Wall
 INCLUDES = -I./include
 LFLAGS = 
 LIBS = -lcurl -ljson
-SRCS = src/main.c src/common.c
+SRCS = src/main.c src/common.c src/cli.c src/api.c src/install.c
 OBJS = $(SRCS:.c=.o)
 MAIN = eg
 
@@ -16,7 +16,9 @@ $(MAIN): $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 
 clean: 
-	rm $(TARGET)
+	rm -f $(MAIN)
+	rm -f *.exe
+	rm -f src/*.o
 	
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^
